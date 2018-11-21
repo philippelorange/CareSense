@@ -2,15 +2,23 @@ package ca.ecaconcordia.enggames.caresense;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Stack;
+
+import ca.ecaconcordia.enggames.caresense.backend.SensorController;
+import ca.ecaconcordia.enggames.caresense.common.ActiveRoomInformation;
 
 public class Home extends Fragment {
+
     public static Home newInstance() {
         Home fragment = new Home();
         return fragment;
@@ -19,6 +27,8 @@ public class Home extends Fragment {
     //vars
     private ArrayList<String> locations = new ArrayList<>();
     private ArrayList<String> timestamps = new ArrayList<>();
+
+    private SensorController sensorController = SensorController.getInstance();
 
 
     @Override
@@ -36,31 +46,13 @@ public class Home extends Fragment {
     }
 
     private void initTestValues(View view) {
-        locations.add("Living Room");
-        locations.add("Bathroom");
-        locations.add("Living Room");
-        locations.add("Kitchen");
-        locations.add("Living Room");
-        locations.add("Bedroom");
-        locations.add("Living Room");
-        locations.add("Bathroom");
-        locations.add("Living Room");
-        locations.add("Kitchen");
-        locations.add("Living Room");
-        locations.add("Bedroom");
+        Stack<ActiveRoomInformation> activityStack = sensorController.getActivities();
+        for (ActiveRoomInformation activeRoomInformation : activityStack) {
+            DateFormat format = new SimpleDateFormat("hh:mm  yyyy-MM-dd");
 
-        timestamps.add("4:20");
-        timestamps.add("4:21");
-        timestamps.add("4:22");
-        timestamps.add("4:23");
-        timestamps.add("4:24");
-        timestamps.add("4:25");
-        timestamps.add("4:20");
-        timestamps.add("4:21");
-        timestamps.add("4:22");
-        timestamps.add("4:23");
-        timestamps.add("4:24");
-        timestamps.add("4:25");
+            locations.add(activeRoomInformation.getRoom());
+            timestamps.add(format.format(activeRoomInformation.getTimestamp()));
+        }
 
         initRecyclerView(view);
     }
@@ -69,6 +61,8 @@ public class Home extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.actionList);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(locations, timestamps, getActivity());
         recyclerView.setAdapter(adapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),
+                DividerItemDecoration.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
     }
 }
