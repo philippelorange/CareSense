@@ -8,10 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.Stack;
 
 import ca.ecaconcordia.enggames.caresense.backend.SensorController;
@@ -39,25 +42,44 @@ public class Home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-        initTestValues(rootView);
+        final View view = inflater.inflate(R.layout.fragment_home, container, false);
+        getValues(view);
 
-        return rootView;
+        addButton(view, R.id.sensorOne, "sensorOne");
+        addButton(view, R.id.sensorTwo, "sensorTwo");
+        addButton(view, R.id.sensorThree, "sensorThree");
+
+
+
+        return view;
     }
 
-    private void initTestValues(View view) {
+    private void addButton(final View view, int sensorId, final String controllerSensorId) {
+        Button sensor = (Button) view.findViewById(sensorId);
+        sensor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sensorController.triggerSensor(new Date(), controllerSensorId);
+                getValues(view);
+            }
+        });
+    }
+
+    private void getValues(View view) {
+        locations.clear();
+        timestamps.clear();
         Stack<ActiveRoomInformation> activityStack = sensorController.getActivities();
         for (ActiveRoomInformation activeRoomInformation : activityStack) {
             DateFormat format = new SimpleDateFormat("hh:mm  yyyy-MM-dd");
-
             locations.add(activeRoomInformation.getRoom());
             timestamps.add(format.format(activeRoomInformation.getTimestamp()));
         }
-
-        initRecyclerView(view);
+        Collections.reverse(locations);
+        Collections.reverse(timestamps);
+        refreshRecyclerView(view);
     }
 
-    private void initRecyclerView(View view) {
+    private void refreshRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.actionList);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(locations, timestamps, getActivity());
         recyclerView.setAdapter(adapter);

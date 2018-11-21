@@ -42,13 +42,6 @@ public class SensorMapper {
     }
 
     public Stack<ActiveRoomInformation> getSensorActivityStack() {
-        sensorActivityStack.push(new ActiveRoomInformation("Living Room", new Date()));
-        sensorActivityStack.push(new ActiveRoomInformation("Bathroom", new Date()));
-        sensorActivityStack.push(new ActiveRoomInformation("Living Room", new Date()));
-        sensorActivityStack.push(new ActiveRoomInformation("Kitchen", new Date()));
-        sensorActivityStack.push(new ActiveRoomInformation("Living Room", new Date()));
-        sensorActivityStack.push(new ActiveRoomInformation("Bedroom", new Date()));
-
         return sensorActivityStack;
     }
 

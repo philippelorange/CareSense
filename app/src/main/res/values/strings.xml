@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">CareSense</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Recent Activity</string>
     <string name="title_alerts">Alerts</string>
     <string name="title_sensors">Sensors</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
