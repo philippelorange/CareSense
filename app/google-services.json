@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1085713495303",
+    "firebase_url": "https://caresense-3034f.firebaseio.com",
+    "project_id": "caresense-3034f",
+    "storage_bucket": "caresense-3034f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1085713495303:android:1d9e169ea0d4328a",
+        "android_client_info": {
+          "package_name": "ca.ecaconcordia.enggames.caresense"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1085713495303-6h05vmpn0djtq79nofu12936g3sm9jfr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.ecaconcordia.enggames.caresense",
+            "certificate_hash": "2eb2ca5662f1dcc439d7a4ffa96515e785bba64d"
+          }
+        },
+        {
+          "client_id": "1085713495303-bjm2v7qmtrfda4v11q8oa75l1r1rkrma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPllPnFqoxf0QEuj63WsLTkiO258rH_2U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1085713495303-bjm2v7qmtrfda4v11q8oa75l1r1rkrma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

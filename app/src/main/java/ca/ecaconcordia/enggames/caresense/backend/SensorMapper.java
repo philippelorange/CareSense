@@ -1,8 +1,5 @@
 package ca.ecaconcordia.enggames.caresense.backend;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -30,7 +27,6 @@ public class SensorMapper {
     }
 
     public void sensorTriggered(SensorActivity activity) {
-
         Sensor sensor = sensors.get(activity.getSensorId());
         if (sensor.getRoomOne().equals(currentRoom)) {
             currentRoom = sensor.getRoomTwo();
@@ -46,10 +42,9 @@ public class SensorMapper {
     }
 
     public static SensorMapper getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new SensorMapper();
-        }
-        else {
+        } else {
             System.err.println("Cannot instantiate singleton SensorMapper twice");
         }
         return instance;

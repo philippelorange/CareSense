@@ -1,6 +1,7 @@
 package ca.ecaconcordia.enggames.caresense;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,6 +40,8 @@ public class Home extends Fragment {
 
     private SensorController sensorController = SensorController.getInstance();
 
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference databaseReference = firebaseDatabase.getReference();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +58,17 @@ public class Home extends Fragment {
         addButton(view, R.id.sensorTwo, "sensorTwo");
         addButton(view, R.id.sensorThree, "sensorThree");
 
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataSnapshot.getValue();
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         return view;
     }

@@ -1,0 +1,71 @@
+from flask import Flask, request, jsonify
+from flaskext.mysql import MySQL
+
+from Sensor import Sensor
+
+app = Flask(__name__)
+mysql = MySQL()
+
+# MySQL configurations
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = ''
+app.config['MYSQL_DATABASE_DB'] = 'care_sense'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+mysql.init_app(app)
+
+sensorOne = Sensor(1, "Living Room", "Bathroom")
+sensorTwo = Sensor(2, "Living Room", "Bedroom")
+sensorThree = Sensor(3, "Living Room", "Kitchen")
+
+sensors = {
+    sensorOne.id: sensorOne,
+    sensorTwo.id: sensorTwo,
+    sensorThree.id: sensorThree
+}
+
+currentRoom = "Living Room"
+
+conn = mysql.connect()
+cursor = conn.cursor()
+
+
+# root
+@app.route("/")
+def index():
+    return "CareSense index page"
+
+
+# GET
+@app.route('/api/getLastRooms', methods=['GET'])
+def get_latest_activity():
+    cursor.execute("SELECT * FROM `current_room`")
+    return jsonify(cursor.fetchall())
+
+
+# POST
+@app.route('/api/sensorUpdate', methods=['POST'])
+def sensor_update():
+    global currentRoom
+    json = request.get_json()
+
+    sensor_id = json["sensor_id"]
+    cursor.execute(
+        "INSERT INTO `sensor_activity` VALUES (NULL, CURRENT_TIME(), \'%s\')", sensor_id)
+    conn.commit()
+
+    if currentRoom == sensors[sensor_id].roomOne:
+        currentRoom = sensors[sensor_id].roomTwo
+    else:
+        if currentRoom == sensors[sensor_id].roomTwo:
+            currentRoom = sensors[sensor_id].roomOne
+
+    cursor.execute(
+        "INSERT INTO `current_room`(`id`, `current_room`) VALUES(NULL, %s)", currentRoom)
+    conn.commit()
+
+    return jsonify({'you sent this': sensor_id})
+
+
+# running web app in local machine
+if __name__ == '__main__':
+    app.run(host='localhost', port=5000)
