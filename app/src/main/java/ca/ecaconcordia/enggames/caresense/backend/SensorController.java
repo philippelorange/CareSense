@@ -1,10 +1,6 @@
 package ca.ecaconcordia.enggames.caresense.backend;
 
-import java.util.Date;
-import java.util.List;
-
-import ca.ecaconcordia.enggames.caresense.common.ActiveRoomInformation;
-import ca.ecaconcordia.enggames.caresense.common.SensorActivity;
+import ca.ecaconcordia.enggames.caresense.common.Sensor;
 
 public class SensorController {
 
@@ -16,12 +12,8 @@ public class SensorController {
         sensorMapper = SensorMapper.getInstance();
     }
 
-    public void triggerSensor(Date timestamp, String sensorId) {
-        sensorMapper.sensorTriggered(new SensorActivity(timestamp, sensorId));
-    }
-
-    public List<ActiveRoomInformation> getActivities() {
-        return sensorMapper.getSensorActivityStack();
+    public void triggerSensor(int sensorId) {
+        sensorMapper.sensorTriggered(new Sensor(sensorId));
     }
 
     public static SensorController getInstance() {

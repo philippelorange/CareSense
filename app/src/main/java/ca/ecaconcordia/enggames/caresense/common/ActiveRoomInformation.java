@@ -16,5 +16,4 @@ public class ActiveRoomInformation {
     public String getRoom() {
         return current_room;
     }
-
 }

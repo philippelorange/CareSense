@@ -3,7 +3,6 @@ package ca.ecaconcordia.enggames.caresense;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +11,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import ca.ecaconcordia.enggames.caresense.common.ActiveRoomInformation;
+
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
 
-    private ArrayList<String> locations = new ArrayList<>();
-    private ArrayList<String> timestamps = new ArrayList<>();
     private Context mContext;
+    private ArrayList<ActiveRoomInformation> activities;
 
-    public RecyclerViewAdapter(ArrayList<String> locations, ArrayList<String> timestamps, Context mContext) {
-        this.locations = locations;
-        this.timestamps = timestamps;
+    public RecyclerViewAdapter(ArrayList<ActiveRoomInformation> activities, Context mContext) {
+        this.activities = activities;
         this.mContext = mContext;
     }
 
@@ -35,13 +34,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.location.setText(locations.get(i));
-        holder.timestamp.setText(timestamps.get(i));
+        holder.location.setText(activities.get(i).getRoom());
+        holder.timestamp.setText(activities.get(i).getTimestamp());
     }
 
     @Override
     public int getItemCount() {
-        return locations.size();
+        return activities.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

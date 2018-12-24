@@ -21,18 +21,26 @@
         android:layout_below="@+id/home_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/sensorOne"
+        android:layout_above="@+id/refresh"
         android:layout_centerHorizontal="true"
         android:layout_margin="15dp"
         android:scrollbars="vertical" />
 
     <Button
+        android:id="@+id/refresh"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sensorTwo"
+        android:text="@string/refresh_list" />
+
+    <Button
         android:id="@+id/sensorOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:text="Sensor 1" />
+        android:text="@string/sensor_1" />
 
     <Button
         android:id="@+id/sensorTwo"
@@ -40,14 +48,14 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
-        android:text="Sensor 2" />
+        android:text="@string/sensor_2" />
 
     <Button
         android:id="@+id/sensorThree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:text="Sensor 3" />
+        android:text="@string/sensor_3" />
 
 </RelativeLayout>
