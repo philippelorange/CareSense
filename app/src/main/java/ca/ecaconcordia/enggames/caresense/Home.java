@@ -1,7 +1,6 @@
 package ca.ecaconcordia.enggames.caresense;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,18 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Stack;
+import java.util.List;
 
 import ca.ecaconcordia.enggames.caresense.backend.SensorController;
 import ca.ecaconcordia.enggames.caresense.common.ActiveRoomInformation;
@@ -40,9 +31,6 @@ public class Home extends Fragment {
 
     private SensorController sensorController = SensorController.getInstance();
 
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference databaseReference = firebaseDatabase.getReference();
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,23 +40,12 @@ public class Home extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
-        getValues(view);
 
         addButton(view, R.id.sensorOne, "sensorOne");
         addButton(view, R.id.sensorTwo, "sensorTwo");
         addButton(view, R.id.sensorThree, "sensorThree");
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataSnapshot.getValue();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        getValues(view);
 
         return view;
     }
@@ -87,11 +64,10 @@ public class Home extends Fragment {
     private void getValues(View view) {
         locations.clear();
         timestamps.clear();
-        Stack<ActiveRoomInformation> activityStack = sensorController.getActivities();
+        List<ActiveRoomInformation> activityStack = sensorController.getActivities();
         for (ActiveRoomInformation activeRoomInformation : activityStack) {
-            DateFormat format = new SimpleDateFormat("hh:mm  yyyy-MM-dd");
             locations.add(activeRoomInformation.getRoom());
-            timestamps.add(format.format(activeRoomInformation.getTimestamp()));
+            timestamps.add(activeRoomInformation.getTimestamp());
         }
         Collections.reverse(locations);
         Collections.reverse(timestamps);

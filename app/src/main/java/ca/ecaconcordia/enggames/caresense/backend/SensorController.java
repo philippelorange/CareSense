@@ -1,7 +1,7 @@
 package ca.ecaconcordia.enggames.caresense.backend;
 
 import java.util.Date;
-import java.util.Stack;
+import java.util.List;
 
 import ca.ecaconcordia.enggames.caresense.common.ActiveRoomInformation;
 import ca.ecaconcordia.enggames.caresense.common.SensorActivity;
@@ -20,15 +20,14 @@ public class SensorController {
         sensorMapper.sensorTriggered(new SensorActivity(timestamp, sensorId));
     }
 
-    public Stack<ActiveRoomInformation> getActivities() {
+    public List<ActiveRoomInformation> getActivities() {
         return sensorMapper.getSensorActivityStack();
     }
 
     public static SensorController getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new SensorController();
-        }
-        else {
+        } else {
             System.err.println("Cannot instantiate singleton SensorController twice");
         }
         return instance;

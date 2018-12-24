@@ -1,5 +1,8 @@
+import datetime
+
 from flask import Flask, request, jsonify
 from flaskext.mysql import MySQL
+import json
 
 from Sensor import Sensor
 
@@ -39,8 +42,12 @@ def index():
 @app.route('/api/getLastRooms', methods=['GET'])
 def get_latest_activity():
     cursor.execute("SELECT * FROM `current_room`")
-    return jsonify(cursor.fetchall())
-
+    row_headers = [x[0] for x in cursor.description]  # this will extract row headers
+    rv = cursor.fetchall()
+    json_data = []
+    for result in rv:
+        json_data.append(dict(zip(row_headers, result)))
+    return json.dumps(json_data, default=str)
 
 # POST
 @app.route('/api/sensorUpdate', methods=['POST'])
@@ -60,7 +67,7 @@ def sensor_update():
             currentRoom = sensors[sensor_id].roomOne
 
     cursor.execute(
-        "INSERT INTO `current_room`(`id`, `current_room`) VALUES(NULL, %s)", currentRoom)
+        "INSERT INTO `current_room`(`id`, `current_room`, `timestamp`) VALUES(NULL, %s, CURRENT_TIME())", currentRoom)
     conn.commit()
 
     return jsonify({'you sent this': sensor_id})
@@ -68,4 +75,4 @@ def sensor_update():
 
 # running web app in local machine
 if __name__ == '__main__':
-    app.run(host='localhost', port=5000)
+    app.run(host='192.168.0.110', port=5000)
