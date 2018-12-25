@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Care Sense</string>
     <string name="title_home">Recent Activity</string>
-    <string name="title_alerts">Alerts</string>
-    <string name="title_sensors">Sensors</string>
+    <string name="title_alerts">Manage Alerts</string>
+    <string name="title_sensors">Manage Sensors</string>
     <string name="timestamp">Timestamp</string>
     <string name="location">Location</string>
     <string name="refresh_list">Refresh List</string>

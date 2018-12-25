@@ -1,3 +1,6 @@
+import os
+from datetime import datetime
+
 from flask import Flask, request, jsonify
 from flaskext.mysql import MySQL
 import json
@@ -28,9 +31,6 @@ sensors = {
 
 currentRoom = "Living Room"
 
-conn = mysql.connect()
-
-
 # root
 @app.route("/")
 def index():
@@ -40,6 +40,7 @@ def index():
 # GET
 @app.route('/api/getLastRooms', methods=['GET'])
 def get_latest_activity():
+    conn = mysql.connect()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM `current_room`")
     row_headers = [x[0] for x in cursor.description]  # this will extract row headers
@@ -48,12 +49,14 @@ def get_latest_activity():
     for result in rv:
         json_data.append(dict(zip(row_headers, result)))
     cursor.close()
+    conn.close()
     return json.dumps(json_data, default=str)
 
 
 # POST
 @app.route('/api/sensorUpdate', methods=['POST'])
 def sensor_update():
+    conn = mysql.connect()
     cursor = conn.cursor()
 
     global currentRoom
@@ -67,17 +70,21 @@ def sensor_update():
     if currentRoom == sensors[sensor_id].roomOne:
         currentRoom = sensors[sensor_id].roomTwo
     elif currentRoom == sensors[sensor_id].roomTwo:
-            currentRoom = sensors[sensor_id].roomOne
+        currentRoom = sensors[sensor_id].roomOne
     elif currentRoom != sensors[sensor_id].roomTwo and currentRoom != sensors[sensor_id].roomOne:
         currentRoom = "Living Room"
 
     cursor.execute(
-        "INSERT INTO `current_room`(`id`, `current_room`, `timestamp`) VALUES(NULL, %s, CURRENT_TIME())", currentRoom)
+        "INSERT INTO `current_room`(`id`, `current_room`, `timestamp`) VALUES(NULL, %s, %s)",
+        (currentRoom,
+         datetime.now().strftime(
+             '%Y-%m-%d %H:%M:%S')))
     conn.commit()
     cursor.close()
+    conn.close()
     return jsonify({'you sent this': sensor_id})
 
 
 # running web app in local machine
 if __name__ == '__main__':
-    app.run(host='192.168.0.112', port=5000)
+    app.run(host='care-sense.herokuapp.com', port=int(os.environ.get('PORT', 33507)))

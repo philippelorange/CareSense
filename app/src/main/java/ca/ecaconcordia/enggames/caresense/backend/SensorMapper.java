@@ -21,7 +21,7 @@ class SensorMapper {
     void sensorTriggered(Sensor sensor) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.112:5000/")
+                .baseUrl("https://care-sense.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService apiService = retrofit.create(ApiService.class);
