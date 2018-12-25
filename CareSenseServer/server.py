@@ -8,10 +8,12 @@ app = Flask(__name__)
 mysql = MySQL()
 
 # MySQL configurations
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = ''
-app.config['MYSQL_DATABASE_DB'] = 'care_sense'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+
+
+app.config['MYSQL_DATABASE_USER'] = 'b1070249d11520'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'd6f231fe'
+app.config['MYSQL_DATABASE_DB'] = 'heroku_102789b37bf7053'
+app.config['MYSQL_DATABASE_HOST'] = 'us-cdbr-iron-east-01.cleardb.net'
 mysql.init_app(app)
 
 sensorOne = Sensor(1, "Living Room", "Bathroom")
