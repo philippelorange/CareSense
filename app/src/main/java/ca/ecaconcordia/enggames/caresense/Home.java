@@ -1,9 +1,12 @@
 package ca.ecaconcordia.enggames.caresense;
 
+import android.app.Notification;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,6 +27,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static ca.ecaconcordia.enggames.caresense.App.CHANNEL_ID;
+
 public class Home extends Fragment {
 
     public static Home newInstance() {
@@ -32,9 +37,8 @@ public class Home extends Fragment {
     }
 
     private ArrayList<ActiveRoomInformation> recentLocations = new ArrayList<>();
-
-
     private SensorController sensorController = SensorController.getInstance();
+    private NotificationManagerCompat notificationManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,8 @@ public class Home extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        notificationManager = NotificationManagerCompat.from(this.getContext());
 
         addButton(view, R.id.sensorOne, 1);
         addButton(view, R.id.sensorTwo, 2);
@@ -62,9 +68,11 @@ public class Home extends Fragment {
     }
 
     private void addRefreshButton(final View view, int buttonId) {
-        //Button sensor = view.findViewById(buttonId);
         FloatingActionButton sensor = view.findViewById(buttonId);
-        sensor.setOnClickListener(v -> getValues(view));
+        sensor.setOnClickListener(v ->
+        {
+            getValues(view);
+        });
     }
 
 
@@ -80,18 +88,20 @@ public class Home extends Fragment {
 
         call.enqueue(new Callback<List<ActiveRoomInformation>>() {
             @Override
-            public void onResponse(Call<List<ActiveRoomInformation>> call, Response<List<ActiveRoomInformation>> response) {
+            public void onResponse(@NonNull Call<List<ActiveRoomInformation>> call, @NonNull Response<List<ActiveRoomInformation>> response) {
                 recentLocations.clear();
+                assert response.body() != null;
                 for (ActiveRoomInformation activeRoomInformation : response.body()) {
                     recentLocations.add(new ActiveRoomInformation(activeRoomInformation
                             .getRoom(), activeRoomInformation.getTimestamp()));
                     Collections.sort(recentLocations, (o1, o2) -> o2.getTimestamp().compareTo(o1.getTimestamp()));
                     refreshRecyclerView(view);
+                    sendOnChannel1(view);
                 }
             }
 
             @Override
-            public void onFailure(Call<List<ActiveRoomInformation>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<ActiveRoomInformation>> call, @NonNull Throwable t) {
                 System.err.println("Failure: " + t.getMessage());
             }
         });
@@ -103,5 +113,16 @@ public class Home extends Fragment {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(recentLocations, getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+    }
+
+    public void sendOnChannel1(View v) {
+        Notification notification = new NotificationCompat.Builder(v.getContext(), CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                .setContentTitle(recentLocations.get(0).getRoom())
+                .setContentText(recentLocations.get(0).getTimestamp())
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+        notificationManager.notify(1, notification);
     }
 }
