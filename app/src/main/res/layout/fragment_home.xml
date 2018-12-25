@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="@string/title_home"
         android:textColor="@color/primary_text"
-        android:textSize="28dp"/>
+        android:textSize="28sp"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/actionList"
@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/sensorTwo"
+        android:layout_margin="16dp"
         android:src="@drawable/ic_refresh_black_24dp"
         android:backgroundTint="@color/colorAccent"
         android:text="@string/refresh_list" />
@@ -42,7 +43,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-
         android:text="@string/sensor_1" />
 
     <Button

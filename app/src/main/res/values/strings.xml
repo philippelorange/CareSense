@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CareSense</string>
+    <string name="app_name">Care Sense</string>
     <string name="title_home">Recent Activity</string>
     <string name="title_alerts">Alerts</string>
     <string name="title_sensors">Sensors</string>
