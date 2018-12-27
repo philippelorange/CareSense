@@ -14,6 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.github.nkzawa.socketio.client.IO;
+
+import com.github.nkzawa.socketio.client.Socket;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,15 +31,20 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static ca.ecaconcordia.enggames.caresense.App.CHANNEL_ID;
+
 
 public class Home extends Fragment {
-
+    private String CHANNEL_ID = getString(R.string.project_id);
     public static Home newInstance() {
         Home fragment = new Home();
         return fragment;
     }
-
+    private Socket mSocket;
+    {
+       try {
+            mSocket = IO.socket("http://care-sense.herokuapp.com");// secret code carsesense69
+       } catch (URISyntaxException e) {}
+    }
     private ArrayList<ActiveRoomInformation> recentLocations = new ArrayList<>();
     private SensorController sensorController = SensorController.getInstance();
     private NotificationManagerCompat notificationManager;
