@@ -7,7 +7,7 @@ import android.os.Build;
 
 public class App extends Application {
 
-    public static final String CHANNEL_ID = "channel1";
+    public final String CHANNEL_ID = getString(R.string.app_name);
 
     @Override
     public void onCreate() {
@@ -20,10 +20,10 @@ public class App extends Application {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel1 = new NotificationChannel(
                     CHANNEL_ID,
-                    "Channel 1",
+                    getString(R.string.app_name),
                     NotificationManager.IMPORTANCE_DEFAULT
             );
-            channel1.setDescription("This is Channel 1");
+            channel1.setDescription(getString(R.string.app_name));
 
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel1);
