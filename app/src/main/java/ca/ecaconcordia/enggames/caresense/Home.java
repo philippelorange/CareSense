@@ -39,12 +39,13 @@ public class Home extends Fragment {
         Home fragment = new Home();
         return fragment;
     }
-    private Socket mSocket;
+    public Socket mSocket;
     {
        try {
             mSocket = IO.socket("http://care-sense.herokuapp.com");// secret code carsesense69
        } catch (URISyntaxException e) {}
     }
+
     private ArrayList<ActiveRoomInformation> recentLocations = new ArrayList<>();
     private SensorController sensorController = SensorController.getInstance();
     private NotificationManagerCompat notificationManager;
@@ -52,6 +53,12 @@ public class Home extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //mSocket.open();
+    }
+    @Override
+    public void onDestroy() {
+       // mSocket.close();
+        super.onDestroy();
     }
 
     @Override
