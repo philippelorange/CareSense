@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 
 import com.github.nkzawa.socketio.client.Socket;
@@ -35,6 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Home extends Fragment {
     private String CHANNEL_ID = getString(R.string.project_id);
+
     public static Home newInstance() {
         Home fragment = new Home();
         return fragment;
@@ -54,6 +56,12 @@ public class Home extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //mSocket.open();
+//        mSocket.on("EVENT_NAME", new Emitter.Listener() {
+//            @Override
+//            public void call(Object... args) {
+//                getValues(getView());
+//            }
+//        });
     }
     @Override
     public void onDestroy() {
