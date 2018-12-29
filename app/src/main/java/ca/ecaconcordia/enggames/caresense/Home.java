@@ -35,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class Home extends Fragment {
-    private String CHANNEL_ID = getString(R.string.project_id);
+    private String CHANNEL_ID = "CHANNEL_ONE";
 
     public static Home newInstance() {
         Home fragment = new Home();

@@ -7,7 +7,7 @@ import android.os.Build;
 
 public class App extends Application {
 
-    public final String CHANNEL_ID = getString(R.string.project_id);
+    public final String CHANNEL_ID ="CHANNEL_ONE";
 
     @Override
     public void onCreate() {
