@@ -9,4 +9,6 @@
     <string name="sensor_1">Sensor 1</string>
     <string name="sensor_2">Sensor 2</string>
     <string name="sensor_3">Sensor 3</string>
+    <string name="notify_after">Notify after:</string>
+    <string name="hours">Hours</string>
 </resources>

@@ -15,5 +15,14 @@
         android:textColor="@color/primary_text"
         android:textSize="28sp"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/alert_list"
+        android:layout_below="@+id/home_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="15dp"
+        android:scrollbars="vertical" />
+
 
 </RelativeLayout>

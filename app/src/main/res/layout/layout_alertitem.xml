@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:id="@+id/parent_layout"
+    android:padding="15dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/location"
+        android:id = "@+id/alert_location"
+        android:textColor="@color/primary_text"
+        android:layout_centerVertical="true"
+        android:textSize="24sp"
+        />
+
+    <TextView
+        android:id="@+id/notify_after"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:text="@string/notify_after"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/notify_after"
+        android:text="@string/timestamp"
+        android:id = "@+id/max_duration"
+        android:textColor="@color/primary_text"
+        android:layout_centerVertical="true"
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/max_duration"
+        android:text="@string/hours"
+        android:id = "@+id/hours"
+        android:textColor="@color/primary_text"
+        android:layout_centerVertical="true"
+        android:textSize="20sp"
+        />
+
+</RelativeLayout>

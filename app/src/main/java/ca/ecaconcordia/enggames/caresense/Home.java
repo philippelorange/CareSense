@@ -120,7 +120,7 @@ public class Home extends Fragment {
                             .getRoom(), activeRoomInformation.getTimestamp()));
                     Collections.sort(recentLocations, (o1, o2) -> o2.getTimestamp().compareTo(o1.getTimestamp()));
                     refreshRecyclerView(view);
-                    sendOnChannel1(view);
+                    //sendOnChannel1(view);
                 }
             }
 
