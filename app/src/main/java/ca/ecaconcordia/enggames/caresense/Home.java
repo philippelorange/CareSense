@@ -92,6 +92,8 @@ public class Home extends Fragment {
                 currentRoom = sensor.getRoomTwo();
             } else if (currentRoom.equals(sensor.getRoomTwo())) {
                 currentRoom = sensor.getRoomOne();
+            } else {
+                currentRoom = Room.LIVING_ROOM;
             }
 
             mDatabase.child("sensorActivity").push().setValue(new ActiveRoomInformation(currentRoom, new Date()));
