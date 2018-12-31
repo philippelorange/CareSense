@@ -34,8 +34,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.location.setText(activities.get(i).getRoom());
-        holder.timestamp.setText(activities.get(i).getTimestamp());
+            holder.location.setText(activities.get(i).getRoom().getRoom());
+            holder.timestamp.setText(activities.get(i).getTimestamp().toString());
     }
 
     @Override

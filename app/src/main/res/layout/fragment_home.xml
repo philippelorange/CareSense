@@ -21,21 +21,10 @@
         android:layout_below="@+id/home_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/refresh"
+        android:layout_above="@+id/sensorTwo"
         android:layout_centerHorizontal="true"
         android:layout_margin="15dp"
         android:scrollbars="vertical" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/refresh"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/sensorTwo"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_refresh_black_24dp"
-        android:backgroundTint="@color/colorAccent"
-        android:text="@string/refresh_list" />
 
     <Button
         android:id="@+id/sensorOne"

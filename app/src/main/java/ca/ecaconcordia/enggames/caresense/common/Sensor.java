@@ -1,14 +1,21 @@
 package ca.ecaconcordia.enggames.caresense.common;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class Sensor {
-    @SerializedName("sensor_id")
-    @Expose
-    private int sensorId;
 
-    public Sensor(int sensorId) {
-        this.sensorId = sensorId;
+    private Room roomOne;
+    private Room roomTwo;
+
+    public Sensor(Room roomOne, Room roomTwo) {
+        this.roomOne = roomOne;
+        this.roomTwo = roomTwo;
+    }
+
+
+    public Room getRoomOne() {
+        return roomOne;
+    }
+
+    public Room getRoomTwo() {
+        return roomTwo;
     }
 }

@@ -1,19 +1,24 @@
 package ca.ecaconcordia.enggames.caresense.common;
 
-public class ActiveRoomInformation {
-    private String current_room;
-    private String timestamp;
+import java.util.Date;
 
-    public ActiveRoomInformation(String current_room, String timestamp) {
+public class ActiveRoomInformation {
+    private Room current_room;
+    private Date timestamp;
+
+    public ActiveRoomInformation(Room current_room, Date timestamp) {
         this.current_room = current_room;
         this.timestamp = timestamp;
     }
 
-    public String getTimestamp() {
+    public ActiveRoomInformation() {
+    }
+
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public String getRoom() {
+    public Room getRoom() {
         return current_room;
     }
 }
