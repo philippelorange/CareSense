@@ -2,12 +2,14 @@ package ca.ecaconcordia.enggames.caresense;
 
 import android.app.Notification;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,8 @@ import ca.ecaconcordia.enggames.caresense.common.ActiveRoomInformation;
 import ca.ecaconcordia.enggames.caresense.common.Room;
 import ca.ecaconcordia.enggames.caresense.common.Sensor;
 
+import static java.util.Objects.requireNonNull;
+
 
 public class Home extends Fragment {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -37,8 +41,7 @@ public class Home extends Fragment {
     private static Room currentRoom = Room.LIVING_ROOM;
 
     public static Home newInstance() {
-        Home fragment = new Home();
-        return fragment;
+        return new Home();
     }
 
 
@@ -57,11 +60,13 @@ public class Home extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        notificationManager = NotificationManagerCompat.from(this.getContext());
+        notificationManager = NotificationManagerCompat.from(requireNonNull(this.getContext()));
 
         addButton(view, R.id.sensorOne, sensorOne);
         addButton(view, R.id.sensorTwo, sensorTwo);
         addButton(view, R.id.sensorThree, sensorThree);
+
+        refreshRecyclerView(view);
 
         mDatabase.child("sensorActivity").addValueEventListener(new ValueEventListener() {
             @Override
@@ -73,6 +78,19 @@ public class Home extends Fragment {
 
                 }
                 refreshRecyclerView(view);
+                sendOnChannel1(view);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        mDatabase.child("helpActivity").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                sendOnChannel2(view);
             }
 
             @Override
@@ -87,19 +105,9 @@ public class Home extends Fragment {
 
     private void addButton(final View view, int sensorId, Sensor sensor) {
         Button sensorButton = view.findViewById(sensorId);
-        sensorButton.setOnClickListener(v -> {
-            if (currentRoom.equals(sensor.getRoomOne())) {
-                currentRoom = sensor.getRoomTwo();
-            } else if (currentRoom.equals(sensor.getRoomTwo())) {
-                currentRoom = sensor.getRoomOne();
-            } else {
-                currentRoom = Room.LIVING_ROOM;
-            }
-
-            mDatabase.child("sensorActivity").push().setValue(new ActiveRoomInformation(currentRoom, new Date()));
-
-        });
+        sensorButton.setOnClickListener(v -> updateRoom(sensor));
     }
+
 
     private void refreshRecyclerView(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.actionList);
@@ -116,11 +124,52 @@ public class Home extends Fragment {
         String CHANNEL_ID = "CHANNEL_ONE";
         Notification notification = new NotificationCompat.Builder(v.getContext(), CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-                .setContentTitle(recentLocations.get(0).getRoom().name())
-                .setContentText(recentLocations.get(0).getTimestamp().toString())
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentTitle("CareSense Warning")
+                .setContentText("George has been in the bathroom for over 30 minutes")
+                .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setDefaults(Notification.DEFAULT_ALL)
+                .build();
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> notificationManager.notify(1, notification), 5000);
+    }
+
+    public void sendOnChannel2(View v) {
+        String CHANNEL_ID = "CHANNEL_ONE";
+        Notification notification = new NotificationCompat.Builder(v.getContext(), CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_warning_black_24dp)
+                .setContentTitle("CareSense ALERT")
+                .setContentText("George is asking for help in the bathroom")
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setDefaults(Notification.DEFAULT_ALL)
                 .build();
         notificationManager.notify(1, notification);
+    }
+
+    public boolean onKeyDown(int keyCode) {
+        if (keyCode == (KeyEvent.KEYCODE_VOLUME_DOWN)) {
+            updateRoom(sensorOne);
+        } else if (keyCode == (KeyEvent.KEYCODE_VOLUME_UP)) {
+            sendHelpAlert();
+        }
+        return true;
+    }
+
+    private void updateRoom(Sensor sensor) {
+        if (currentRoom.equals(sensor.getRoomOne())) {
+            currentRoom = sensor.getRoomTwo();
+        } else if (currentRoom.equals(sensor.getRoomTwo())) {
+            currentRoom = sensor.getRoomOne();
+        } else {
+            currentRoom = Room.LIVING_ROOM;
+        }
+
+        mDatabase.child("sensorActivity").push().setValue(new ActiveRoomInformation(currentRoom, new Date()));
+    }
+
+    private void sendHelpAlert() {
+        mDatabase.child("helpActivity").push().setValue(new ActiveRoomInformation(currentRoom, new
+                Date()));
     }
 }

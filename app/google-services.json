@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "1085713495303-t05pjii7ob36hm6cs8o4s68gscj7ff09.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.ecaconcordia.enggames.caresense",
+            "certificate_hash": "9892620085b4f48006998e1f6d9e4daab2234c19"
+          }
+        },
+        {
           "client_id": "1085713495303-bjm2v7qmtrfda4v11q8oa75l1r1rkrma.apps.googleusercontent.com",
           "client_type": 3
         }
