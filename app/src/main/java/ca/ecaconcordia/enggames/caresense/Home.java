@@ -21,7 +21,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import ca.ecaconcordia.enggames.caresense.common.ActiveRoomInformation;
@@ -65,7 +69,7 @@ public class Home extends Fragment {
         addButton(view, R.id.sensorOne, sensorOne);
         addButton(view, R.id.sensorTwo, sensorTwo);
         addButton(view, R.id.sensorThree, sensorThree);
-
+        //DateFormat df = new DateFormat();
         refreshRecyclerView(view);
 
         mDatabase.child("sensorActivity").addValueEventListener(new ValueEventListener() {
@@ -73,6 +77,9 @@ public class Home extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 recentLocations.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+//                    Date date = postSnapshot.child("timestamp").getValue(Date.class);
+//                    SimpleDateFormat sdf = new SimpleDateFormat("DD MM YYYY ");
+                    //DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
                     recentLocations.add(new ActiveRoomInformation(postSnapshot.child("room").getValue(Room.class),
                             postSnapshot.child("timestamp").getValue(Date.class)));
 

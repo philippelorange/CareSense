@@ -11,4 +11,16 @@
     <string name="sensor_3">Sensor 3</string>
     <string name="notify_after">Notify after:</string>
     <string name="hours">Hours</string>
+    <string name="nickameTitle">Room Nickname *Optional*</string>
+    <string name="submit">Add Sensor</string>
+    <string-array name="rooms">
+        <item>Bedroom</item>
+        <item>Bathroom</item>
+        <item>Stairs</item>
+        <item>Outdoor Stairs</item>
+        <item>Living Room</item>
+        <item>Kitchen</item>
+        <item>Basement</item>
+        <item>Powder Room</item>
+    </string-array>
 </resources>

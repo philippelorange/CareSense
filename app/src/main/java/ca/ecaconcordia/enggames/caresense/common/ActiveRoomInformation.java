@@ -1,5 +1,6 @@
 package ca.ecaconcordia.enggames.caresense.common;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ActiveRoomInformation {

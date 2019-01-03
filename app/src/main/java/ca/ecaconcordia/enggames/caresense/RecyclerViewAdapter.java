@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import ca.ecaconcordia.enggames.caresense.common.ActiveRoomInformation;
 
@@ -35,7 +37,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
             holder.location.setText(activities.get(i).getRoom().getRoom());
-            holder.timestamp.setText(activities.get(i).getTimestamp().toString());
+            Date date = activities.get(i).getTimestamp();
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM DD kk:mm");
+
+            holder.timestamp.setText(sdf.format(date));
     }
 
     @Override
