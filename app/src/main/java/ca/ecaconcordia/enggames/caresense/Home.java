@@ -77,9 +77,6 @@ public class Home extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 recentLocations.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//                    Date date = postSnapshot.child("timestamp").getValue(Date.class);
-//                    SimpleDateFormat sdf = new SimpleDateFormat("DD MM YYYY ");
-                    //DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
                     recentLocations.add(new ActiveRoomInformation(postSnapshot.child("room").getValue(Room.class),
                             postSnapshot.child("timestamp").getValue(Date.class)));
 
