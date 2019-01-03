@@ -85,7 +85,12 @@ public class Home extends Fragment {
 
                 }
                 refreshRecyclerView(view);
-                sendOnChannel1(view);
+                if (recentLocations.size() > 0 && recentLocations.get(recentLocations.size() - 1)
+                        .getRoom()
+                        .equals(Room
+                                .BATHROOM)) {
+                    sendOnChannel1(view);
+                }
             }
 
             @Override
