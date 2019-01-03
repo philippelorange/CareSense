@@ -13,6 +13,19 @@
     <string name="hours">Hours</string>
     <string name="nickameTitle">Room Nickname *Optional*</string>
     <string name="submit">Add Sensor</string>
+    <string name="alertRoom1">Bathroom</string>
+    <string name="alertTime1">30 min</string>
+    <string name="alertRoom2">Bedroom</string>
+    <string name="alertTime2">10 hr</string>
+    <string name="roomTitle">Room</string>
+    <string name="timeTitle">Time</string>
+    <string name="startTitle">Start</string>
+    <string name="endTitle">End</string>
+    <string name="startTime1">20:00</string>
+    <string name="endTime1">6:00</string>
+    <string name="alertTable">Timed Alerts</string>
+    <string name="timeframeTable">Time Framed Alerts</string>
+
     <string-array name="rooms">
         <item>Bedroom</item>
         <item>Bathroom</item>

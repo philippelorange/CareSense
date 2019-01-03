@@ -13,16 +13,143 @@
         android:layout_height="wrap_content"
         android:text="@string/title_alerts"
         android:textColor="@color/primary_text"
-        android:textSize="28sp"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/alert_list"
-        android:layout_below="@+id/home_title"
-        android:layout_width="fill_parent"
+        android:textSize="28sp"
+        android:layout_alignParentTop="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="15dp"
-        android:scrollbars="vertical" />
+        android:orientation="vertical"
+        android:layout_marginTop="56dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/alertTable"
+            android:textSize="20sp"
+            android:textColor="@color/primary_text"/>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp">
+        <TableRow android:layout_width="match_parent">
+            <TextView
+                android:layout_weight="1"
+                android:layout_column="1"
+                android:text="@string/roomTitle"
+                android:padding="3dp"
+                android:textSize="20sp"
+                android:textColor="@color/primary_text"
+                />
+            <TextView
+                android:layout_weight="1"
+                android:text="@string/timeTitle"
+                android:gravity="end"
+                android:padding="3dp"
+                android:textSize="20sp"
+                android:textColor="@color/primary_text"
+                />
+        </TableRow>
+
+        <TableRow android:layout_width="match_parent">
+            <TextView
+                android:layout_column="1"
+                android:layout_weight="1"
+                android:text="@string/alertRoom1"
+                android:padding="3dip"
+                android:textSize="20sp"/>
+            <TextView
+                android:text="@string/alertTime1"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:padding="3dp"
+                android:textSize="20sp"/>
+        </TableRow>
+        <TableRow android:layout_width="match_parent">
+            <TextView
+                android:layout_column="1"
+                android:layout_weight="1"
+                android:text="@string/alertRoom2"
+                android:padding="3dip"
+                android:textSize="20sp"/>
+            <TextView
+                android:text="@string/alertTime2"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:padding="3dp"
+                android:textSize="20sp"/>
+        </TableRow>
+
+    </TableLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="@string/timeframeTable"
+            android:textSize="20sp"
+            android:textColor="@color/primary_text"/>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp">
+            <TableRow android:layout_width="match_parent">
+                <TextView
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:text="@string/roomTitle"
+                    android:padding="3dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/primary_text"/>
+                <TextView
+                    android:text="@string/startTitle"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:padding="3dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/primary_text"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:text="@string/endTitle"
+                    android:gravity="end"
+                    android:padding="3dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/primary_text"/>
+            </TableRow>
+            <TableRow android:layout_width="match_parent">
+                <TextView
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:text="@string/alertRoom2"
+                    android:padding="3dp"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:text="@string/startTime1"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:padding="3dp"
+                    android:textSize="20sp"/>
+                <TextView
+                    android:layout_weight="1"
+                    android:text="@string/endTime1"
+                    android:padding="3dp"
+                    android:gravity="end"
+                    android:textSize="20sp"/>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp">
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_black_24dp"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="15dp" />
+    </FrameLayout>
 
 
 </RelativeLayout>
